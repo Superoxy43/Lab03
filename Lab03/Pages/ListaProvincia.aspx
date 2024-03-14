@@ -11,7 +11,21 @@
             <h2 style="color: #0033CC">Lista de Provincias</h2>
         </div>
 
-        <asp:GridView ID="GvListaProvincias" runat="server" AutoGenerateColumns="true" CssClass="table table-striped" BackColor="#CCCCCC" EditRowStyle-BackColor="#9999FF">
+        <asp:GridView ID="GvListaProvincias" runat="server" AutoGenerateColumns="false" CssClass="table table-striped" BackColor="#CCCCCC" EditRowStyle-BackColor="#9999FF">
+            <Columns>
+                <asp:BoundField DataField="idProvincia" HeaderText="ID" />
+                <asp:BoundField DataField="provincia" HeaderText="Provincia" />
+                <asp:BoundField DataField="estado" HeaderText="Estado" />
+                <asp:BoundField DataField="fechaCreacion" HeaderText="Fecha Creación" />
+
+
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <a href="EditarProvincia.aspx?id=<%# Eval("idProvincia") %> ">Editar</a>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+            </Columns>
         </asp:GridView>
 
     </div>

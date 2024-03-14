@@ -5,10 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="P5_Lab03Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="spConsultarProvinciaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProvincia" Type="int" Mode="In" />
+        </Function>
         <Function Name="spConsultarProvincias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spCrearProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
           <Parameter Name="fechaCreacion" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spEditarProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProvincia" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spEliminarProvincia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProvincia" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="P5_Lab03ModelStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -21,10 +32,27 @@
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="fechaCreacion" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="spConsultarProvinciaPorId" ReturnType="Collection(P5_Lab03Model.spConsultarProvinciaPorId_Result)">
+            <Parameter Name="idProvincia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spEditarProvincia">
+            <Parameter Name="idProvincia" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spEliminarProvincia">
+            <Parameter Name="idProvincia" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spConsultarProvincias_Result">
           <Property Type="Int32" Name="idProvincia" Nullable="false" />
           <Property Type="String" Name="provincia" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaCreacion" Nullable="false" Precision="23" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="3" />
+        </ComplexType>
+        <ComplexType Name="spConsultarProvinciaPorId_Result">
+          <Property Type="Int32" Name="idProvincia" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaCreacion" Nullable="false" Precision="23" />
           <Property Type="String" Name="estado" Nullable="false" MaxLength="3" />
         </ComplexType>
@@ -45,6 +73,18 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spCrearProvincia" FunctionName="P5_Lab03Model.Store.spCrearProvincia" />
+          <FunctionImportMapping FunctionImportName="spConsultarProvinciaPorId" FunctionName="P5_Lab03Model.Store.spConsultarProvinciaPorId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="P5_Lab03Model.spConsultarProvinciaPorId_Result">
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spEditarProvincia" FunctionName="P5_Lab03Model.Store.spEditarProvincia" />
+          <FunctionImportMapping FunctionImportName="spEliminarProvincia" FunctionName="P5_Lab03Model.Store.spEliminarProvincia" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

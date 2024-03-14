@@ -45,5 +45,40 @@ namespace Lab03.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCrearProvincia", nombreParameter, fechaCreacionParameter);
         }
+    
+        public virtual ObjectResult<spConsultarProvinciaPorId_Result> spConsultarProvinciaPorId(Nullable<int> idProvincia)
+        {
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("idProvincia", idProvincia) :
+                new ObjectParameter("idProvincia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spConsultarProvinciaPorId_Result>("spConsultarProvinciaPorId", idProvinciaParameter);
+        }
+    
+        public virtual int spEditarProvincia(Nullable<int> idProvincia, string nombre, string estado)
+        {
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("idProvincia", idProvincia) :
+                new ObjectParameter("idProvincia", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var estadoParameter = estado != null ?
+                new ObjectParameter("estado", estado) :
+                new ObjectParameter("estado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEditarProvincia", idProvinciaParameter, nombreParameter, estadoParameter);
+        }
+    
+        public virtual int spEliminarProvincia(Nullable<int> idProvincia)
+        {
+            var idProvinciaParameter = idProvincia.HasValue ?
+                new ObjectParameter("idProvincia", idProvincia) :
+                new ObjectParameter("idProvincia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEliminarProvincia", idProvinciaParameter);
+        }
     }
 }
