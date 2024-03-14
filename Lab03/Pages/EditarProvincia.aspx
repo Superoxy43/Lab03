@@ -21,15 +21,13 @@
             <asp:TextBox ID="TxtEstado" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
 
-        <div>
+        <div cssclass="table table-striped-columns">
             <asp:Button ID="BtnModificar" runat="server" Text="GUARDAR" CssClass="btn btn-primary" OnClick="BtnModificar_Click" />
-
             <asp:Button ID="BtnEliminar" runat="server" Text="ELIMINAR" CssClass="btn btn-primary" OnClick="BtnEliminar_Click" />
-        </div>
-
-        <div>
             <a href="ListaProvincia.aspx" class="btn btn-primary">Cancelar</a>
         </div>
+
+
 
 
 
